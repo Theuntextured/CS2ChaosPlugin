@@ -11,25 +11,47 @@ namespace ChaosPlugin;
 public class ChaosPlugin : BasePlugin
 {
     public override string ModuleName => "Chaos Plugin";
-
     public override string ModuleVersion => "v0.0.1";
-
     public string ReadyText => ModuleName + " " + ModuleVersion + " ready.";
 
     public ChaosManager Manager = new ChaosManager();
-
     public static ChaosPlugin? Plugin = null;
+    
+    private CCSGameRules? _gameRules;
 
     public override void Load(bool hotReload)
     {
         Plugin = this;
         RegisterAttributeHandlers(Manager);
         Manager.Load();
-        RegisterListener<Listeners.OnTick>(() => { Manager.Tick(); });
-
-
+        RegisterListener<Listeners.OnTick>(OnTick);
+        RegisterListener<Listeners.OnMapStart>(OnMapStartHandler);
 
         Console.WriteLine("Chaos Plugin loaded.");
+    }
+    
+    private void OnMapStartHandler(string mapName)
+    {
+        _gameRules = null;
+    }
+
+    private void InitializeGameRules()
+    {
+        var GameRulesProxy = Utilities.FindAllEntitiesByDesignerName<CCSGameRulesProxy>("cs_gamerules").FirstOrDefault();
+        _gameRules = GameRulesProxy?.GameRules;
+    }
+
+    private void OnTick()
+    {
+        if (_gameRules == null)
+        {
+            InitializeGameRules();
+        }
+        else
+        {
+            _gameRules.GameRestart = _gameRules.RestartRoundTime < Server.CurrentTime;
+        }
+        Manager.Tick();
     }
 
     public override void Unload(bool hotReload)
@@ -69,16 +91,17 @@ public class ChaosPlugin : BasePlugin
         }
 
         string TargetEffect = Command.GetArg(0);
-        if (!Manager.EffectClasses.TryGetValue(TargetEffect, out var TargetType)) return;
-        Manager.CreateEffect(TargetType);
+        Manager.CreateEffect(TargetEffect);
     }
-}
 
-public class ChaosPluginServiceCollection : IPluginServiceCollection<ChaosPlugin>
-{
-    public void ConfigureServices(IServiceCollection serviceCollection)
+    [ConsoleCommand("chaos_list", "Lists all chaos effects available.")]
+    [ConsoleCommand("chaos_effects", "Lists all chaos effects available.")]
+    public void OnChaosListCommand(CCSPlayerController? Player, CommandInfo Command)
     {
-        //serviceCollection.AddScoped<ExampleInjectedClass>();
-        //serviceCollection.AddLogging(builder => ...);
+        Command.ReplyToCommand("List of chaos effects:");
+        foreach (var Effect in Manager.EffectClasses)
+        {
+            Command.ReplyToCommand(Effect.Key);
+        }
     }
 }

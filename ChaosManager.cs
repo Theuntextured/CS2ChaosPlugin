@@ -6,49 +6,103 @@ using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Events;
 using CounterStrikeSharp.API.Modules.Utils;
+using Microsoft.VisualBasic.CompilerServices;
 
 
 namespace ChaosPlugin;
+
 public class ChaosManager
 {
-    Random Rand = new Random();
-    
+    public Random Rand = new Random();
+
     public Dictionary<string, Type> EffectClasses = [];
 
     public List<ChaosEffect> CurrentEffects = [];
 
-
-    private void AddEffectType(Type effectType)
+    public static string RepeatString(string Str, int Amount)
     {
-        // Retrieve the PropertyInfo for the static 'UId' property
-        var UidProperty = effectType.GetProperty("UId", BindingFlags.Public | BindingFlags.Static);
-
-        if (UidProperty == null)
-            throw new InvalidOperationException($"Type {effectType.FullName} does not have a public static property named 'UId'.");
-
-        // Get the value of the 'UId' property
-        var UidValue = UidProperty.GetValue(null);
-
-        if (UidValue == null)
-            throw new InvalidOperationException($"The 'UId' property of type {effectType.FullName} returned null.");
-
-        // Add the effect type to the dictionary using the retrieved UId
-        EffectClasses.Add((string)UidValue, effectType);
+        return string.Concat(Enumerable.Repeat(Str, Amount));
     }
+    
+    public void RegisterEffectClasses()
+    {
+        // Get all types in the current assembly
+        var EffectTypes = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .Where(t => t.IsSubclassOf(typeof(ChaosEffect)) && !t.IsAbstract)
+            .ToList();
+        
+        Console.WriteLine($"{EffectTypes.Count} effects found.");
+        foreach (var Type in EffectTypes)
+        {
+            Console.WriteLine($"Registering {Type.FullName}");
+            // Assuming each class has a static UId property
+            var UIdProperty = Type.GetProperty("StaticUId", BindingFlags.Public | BindingFlags.Static);
+            if (UIdProperty != null)
+            {
+                string UId = (string)UIdProperty.GetValue(null);
+                if (!EffectClasses.ContainsKey(UId))
+                {
+                    EffectClasses.Add(UId, Type);
+                    Console.WriteLine($"{UId} has been registered.");
+                }
+            }
+        }
+    }
+
     public void Load()
     {
-        AddEffectType(typeof(ColorfulSmokesEffect));
+        //EffectClasses.Add("colorful_smoke", typeof(ColorfulSmokesEffect));
+        RegisterEffectClasses();
+    }
+
+    public void EmitSoundToAll(string Sound)
+    {
+        var Players = Utilities.GetPlayers();
+        foreach (var Player in Players)
+        {
+            Player.ExecuteClientCommand("play " + Sound);
+        }
+    }
+
+    string MakeProgressBar(float Percent, int BarLength)
+    {
+        const string BarFill = "\u2593";
+        const string BarEmpty = "\u2591";
+
+        var BarFillCount = (int)Math.Round(Percent * BarLength);
+        return RepeatString(BarFill, BarFillCount) + RepeatString(BarEmpty, BarLength - BarFillCount);
     }
 
     public void Tick()
     {
+        var GameRulesEntity = Utilities.FindAllEntitiesByDesignerName<CBaseEntity>("cs_gamerules").SingleOrDefault();
+        if (GameRulesEntity == null) return;
+        var GameRules = GameRulesEntity.As<CCSGameRulesProxy>().GameRules;
+        if (GameRules == null) return;
+        if (!GameRules.HasMatchStarted)
+        {
+            Unload();
+            return;
+        }
         const float Dt = 0.015625f; // 1/64
+
+        for (var i = 1; i <= 3; i++)
+        {
+            if(CurrentTime + Dt >= (TimePerEffect - i) && CurrentTime < (TimePerEffect - i))
+            {
+                EmitSoundToAll("\\sounds\\ui\\buttonrollover.vsnd_c");
+                Console.WriteLine($"{i} seconds left.");
+                break;
+            }
+        }
 
         CurrentTime += Dt;
         if (CurrentTime >= TimePerEffect)
         {
             CurrentTime -= TimePerEffect;
-            CreateEffect(EffectClasses.ElementAt(Rand.Next(EffectClasses.Count)).Value);
+            CreateEffect(EffectClasses.ElementAt(Rand.Next(EffectClasses.Count)).Key);
+            EmitSoundToAll("\\sounds\\ui\\buttonclick.vsnd_c");
         }
         
         for (int i = 0; i < CurrentEffects.Count; ++i)
@@ -63,23 +117,52 @@ public class ChaosManager
             }
             Effect.TickEffect(Dt);
         }
+
+        float TimePercent = CurrentTime / TimePerEffect;
+        string Color = "green";
+        if (TimePercent > 0.5f) 
+            Color = TimePercent > 0.8f ? "red" : "orange";
+        
+        string BarText = $"<font color='{Color}'>Next effect:<br>{MakeProgressBar(TimePercent, 10)}</font>"; 
+        
+        foreach (var Player in Utilities.GetPlayers())
+        {
+            Player.PrintToCenterHtml(BarText);
+        }
+    }
+
+    public void RemoveAllEffects()
+    {
+        while (CurrentEffects.Count > 0) 
+            RemoveEffect(CurrentEffects.Count - 1);
     }
 
     public void Unload()
     {
-        while (CurrentEffects.Count > 0)
-        {
-            RemoveEffect(CurrentEffects.Count - 1);
-        }
+        RemoveAllEffects();
     }
-
-    public ChaosEffect? CreateEffect(Type Effect)
+    
+    public ChaosEffect? CreateEffect(string Effect)
     {
         if (ChaosPlugin.Plugin == null) return null;
-        ChaosEffect? NewEffect = (ChaosEffect?)Activator.CreateInstance(Effect);
+
+        foreach (var CurrentEffect in CurrentEffects)
+        {
+            if (CurrentEffect.UId == Effect)
+            {
+                CurrentEffect.TimeLeft = CurrentEffect.GetEffectDuration();
+                CurrentEffects.Remove(CurrentEffect);
+                CurrentEffects.Add(CurrentEffect);
+                return CurrentEffect;
+            }
+        }
+
+        if(!EffectClasses.TryGetValue(Effect, out var EffectType)) return null;
+        ChaosEffect? NewEffect = (ChaosEffect?)Activator.CreateInstance(EffectType);
         if (NewEffect == null) return null;
         if(NewEffect.TimeLeft > 0) CurrentEffects.Add(NewEffect);
         NewEffect.IsLoaded = true;
+        NewEffect.UId = Effect;
         ChaosPlugin.Plugin.RegisterAttributeHandlers(NewEffect);
         NewEffect.StartEffect();
         if(NewEffect.TimeLeft == 0) NewEffect.IsLoaded = false;

@@ -50,7 +50,8 @@ public abstract class ChaosEffect
     public virtual void EndEffect(){}
     public virtual void TickEffect(float Dt){}
 
-    public static string UId = "ChaosEffectNone";
+    public string UId = "NONE";
+   
     public virtual string GetEffectName => "Name_None";
     public virtual string GetEffectDescription => "Description_None";
 
