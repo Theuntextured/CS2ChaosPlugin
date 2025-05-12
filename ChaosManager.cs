@@ -6,9 +6,6 @@ using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Events;
-using CounterStrikeSharp.API.Modules.UserMessages;
-using CounterStrikeSharp.API.Modules.Utils;
-using Microsoft.VisualBasic.CompilerServices;
 
 
 namespace ChaosPlugin;
@@ -171,6 +168,7 @@ public class ChaosManager
             Console.WriteLine($"{Effect} could not be created because it does not exist.");
             return null;
         }
+        
         ChaosEffect? NewEffect = (ChaosEffect?)Activator.CreateInstance(EffectType);
         if (NewEffect == null)
         {
@@ -178,11 +176,12 @@ public class ChaosManager
             return null;
         }
 
-        if(NewEffect.IncompatibleEffects.Count > 0) {
+        if(NewEffect.IncompatibleEffects.Count > 0 || NewEffect.Category != null) {
             for (int i = 0; i < CurrentEffects.Count; ++i)
             {
                 var CurrentEffect = CurrentEffects[i];
-                if (NewEffect.IncompatibleEffects.Contains(CurrentEffect.UId))
+                if (NewEffect.IncompatibleEffects.Contains(CurrentEffect.UId) ||
+                    (NewEffect.Category == CurrentEffect.Category && NewEffect.Category != null))
                 {
                     RemoveEffect(i);
                     i--;

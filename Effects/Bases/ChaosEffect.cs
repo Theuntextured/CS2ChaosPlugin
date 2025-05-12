@@ -41,6 +41,7 @@ public abstract class ChaosEffect
     public virtual string GetEffectDescription => "Description_None";
 
     public virtual HashSet<string> IncompatibleEffects => [];
+    public virtual string? Category => null;
 
     public float TimeLeft;
     

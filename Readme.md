@@ -64,6 +64,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 * OPTIONAL `public virtual void TickEffect(float Dt)` - The function gets called on tick while the effect is active. (Only called when the duration is >0)
 * OPTIONAL `public virtual float GetEffectDuration()` - Should return the duration of the effect. returning 0 means no duration, which has the above consequences.
 * OPTIONAL `public virtual HashSet<string> IncompatibleEffects` - Should return a list of incompatible effect class names which should be removed if active. For example an effect which increases gravity would be incompatible with one that lowers it.
+* OPTIONAL `public virtual string? Category` - Getter for a category. Null for no category. Two effects of the same category cannot coexist. It is an easier wa to define incompatibilities.
 
 **IMPORTANT NOTE:** If an effect is not to be loaded in by the effect manager as a usable effect, then it should be marked as `abstract`
 **NOTE:** If an effect is an event listener, remember to remove it as a listener when the effect ends.
@@ -77,8 +78,8 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~Nothing~~
 * ~~Explode in midair~~
 * ~~Shuffle locations~~
-* Call of Duty (no recoil, no spread)
-* Moon gravity
+* ~~Call of Duty (no recoil, no spread)~~
+* ~~Moon gravity~~
 * Poor boy (remove all money)
 * Max money
 * London (Everyone is left with knife only)
