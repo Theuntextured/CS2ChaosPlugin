@@ -27,7 +27,7 @@ public class ColorfulSmokes : ChaosEffect
             });
         };
 
-        GetChaosPlugin().RegisterListener(SmokeListener);
+        GetChaosPlugin()?.RegisterListener(SmokeListener);
     }
     public override string GetEffectName => "Colorful Smokes";
     public override string GetEffectDescription => "Makes smokes colorful!";
@@ -35,7 +35,8 @@ public class ColorfulSmokes : ChaosEffect
     public override void EndEffect()
     {
         if(GetChaosPlugin() == null) return;
-        GetChaosPlugin().RemoveListener(SmokeListener);
+        if(SmokeListener == null) return;
+        GetChaosPlugin()?.RemoveListener(SmokeListener);
     }
 
     public override ChaosEffectDuration Duration => ChaosEffectDuration.Long;

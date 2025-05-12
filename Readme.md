@@ -80,6 +80,8 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~Shuffle locations~~
 * ~~Call of Duty (no recoil, no spread)~~
 * ~~Moon gravity~~
+* ~~No Gravity~~
+* ~~Extreme Gravity~~
 * Poor boy (remove all money)
 * Max money
 * London (Everyone is left with knife only)
@@ -95,8 +97,6 @@ It also automatically registers all relevant effect types to be used. Here are s
 * Flashbang (Everyone gets flashed)
 * CS2 Moment (Extreme spread)
 * Pacifist (Killing someone will blow you up - Except for killing bomb planter or diffuser)
-* No gravity
-* SILENCE! (Push to talk will blow you up)
 * Flip everyone (Everyone turns 180 degrees)
 * OHKO (1hp, gives back hp on end)
 * Invisibility (When sound is not being made)

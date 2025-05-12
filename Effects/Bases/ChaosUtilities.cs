@@ -37,4 +37,17 @@ public static class ChaosUtilities
             (List[k], List[n]) = (List[n], List[k]);
         }
     }
+
+    public static void RemoveWeaponsExceptKnife(CCSPlayerController Player)
+    {
+        if (!Player.IsValid || !Player.Pawn.IsValid)
+            return;
+        
+        // Remove existing weapons
+        Player.RemoveWeapons();
+        Server.NextFrame(() =>
+        {
+            Player.GiveNamedItem("weapon_knife");
+        });
+    }
 }
