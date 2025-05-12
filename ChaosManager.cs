@@ -6,6 +6,7 @@ using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Events;
+using CounterStrikeSharp.API.Modules.UserMessages;
 using CounterStrikeSharp.API.Modules.Utils;
 using Microsoft.VisualBasic.CompilerServices;
 
@@ -125,11 +126,19 @@ public class ChaosManager
         if (TimePercent > 0.5f) 
             Color = TimePercent > 0.8f ? "red" : "orange";
         
-        string BarText = $"<font color='{Color}'>Next effect:<br>{MakeProgressBar(TimePercent, 10)}</font>"; 
+        string BarText = $"<font color='{Color}'>Next effect:<br>{MakeProgressBar(TimePercent, 10)}</font>";
+
+        string EffectsText = "<br>{default}";
+        
+        foreach (var Effect in CurrentEffects)
+        {
+            EffectsText +=
+                $"{Effect.GetEffectName} {MakeProgressBar(Effect.TimeLeft / Effect.GetEffectDuration(), 8)}\n";
+        }
         
         foreach (var Player in Utilities.GetPlayers())
         {
-            Player.PrintToCenterHtml(BarText);
+            Player.PrintToCenterHtml(BarText + GetColoredText(EffectsText));
         }
     }
 

@@ -76,7 +76,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 ### Effects to do
 
 * ~~ColorfulSmokes~~
-* Nothing
+* ~~Nothing~~
 * Explode in midair
 * Shuffle locations
 * Call of Duty (no recoil, no spread)
@@ -90,14 +90,14 @@ It also automatically registers all relevant effect types to be used. Here are s
 * 2x game speed
 * Explosive combat (Every hit spawns an explosion)
 * Back to spawn (Everyone gets teleported to spawn)
-* Rindomize loadout
+* Randomize loadout
 * Infinite nades
 * Heavy recoil
 * Flashbang (Everyone gets flashed)
 * CS2 Moment (Extreme spread)
 * Pacifist (Killing someone will blow you up - Except for killing bomb planter or diffuser)
 * No gravity
-* SILENCE! (Push to talk will make you explode)
+* SILENCE! (Push to talk will blow you up)
 * Flip everyone (Everyone turns 180 degrees)
 * OHKO (1hp, gives back hp on end)
 * Invisibility (When sound is not being made)
@@ -107,8 +107,14 @@ It also automatically registers all relevant effect types to be used. Here are s
 * LAG (rolls back position frequently)
 * Play CSGO intro music
 * Unbind W (does not rebind it. Player should do it manually)
-* Airstrike (Spawn nades falling from the sky)
+* m_yaw (HELICOPTER HELICOPTER)
+* Airstrike (Spawn HEs falling from the sky)
 * Spawn chicken
+* Bomb can be planted anywhere
+* Buy anywhere
+* Teleport random CT to C4
 * spawn smoke
 * spawn decoy grenade
 * Give away locations (Play "AAH!" sfx at every player's location)
+* Randomize health
+* Negev is meta (Give everyone a negev)
