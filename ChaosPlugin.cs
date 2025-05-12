@@ -90,7 +90,7 @@ public class ChaosPlugin : BasePlugin
             return;
         }
 
-        string TargetEffect = Command.GetArg(0);
+        string TargetEffect = Command.GetArg(1);
         Manager.CreateEffect(TargetEffect);
     }
 

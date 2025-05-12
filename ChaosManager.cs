@@ -161,13 +161,22 @@ public class ChaosManager
                 CurrentEffect.TimeLeft = CurrentEffect.GetEffectDuration();
                 CurrentEffects.Remove(CurrentEffect);
                 CurrentEffects.Add(CurrentEffect);
+                Console.WriteLine($"{CurrentEffect.GetEffectName} has been reset.");
                 return CurrentEffect;
             }
         }
 
-        if(!EffectClasses.TryGetValue(Effect, out var EffectType)) return null;
+        if (!EffectClasses.TryGetValue(Effect, out var EffectType))
+        {
+            Console.WriteLine($"{Effect} could not be created because it does not exist.");
+            return null;
+        }
         ChaosEffect? NewEffect = (ChaosEffect?)Activator.CreateInstance(EffectType);
-        if (NewEffect == null) return null;
+        if (NewEffect == null)
+        {
+            Console.WriteLine($"{Effect} could not be created.");
+            return null;
+        }
 
         if(NewEffect.IncompatibleEffects.Count > 0) {
             for (int i = 0; i < CurrentEffects.Count; ++i)
@@ -180,6 +189,7 @@ public class ChaosManager
                 }
             }
         }
+        
         if(NewEffect.TimeLeft > 0) CurrentEffects.Add(NewEffect);
         NewEffect.IsLoaded = true;
         NewEffect.UId = Effect;
@@ -239,6 +249,7 @@ public class ChaosManager
     {
         Debug.Assert(Pos >=0 && Pos < CurrentEffects.Count);
         CurrentEffects[Pos].EndEffect();
+        Console.WriteLine($"{CurrentEffects[Pos].GetEffectName} has been removed.");
         CurrentEffects[Pos].IsLoaded = false;
         CurrentEffects.RemoveAt(Pos);
     }
@@ -258,6 +269,7 @@ public class ChaosManager
 
         if (SplittedText[0].ToLower() == ".chaos_effect" && SplittedText.Length > 1)
         {
+            Console.WriteLine($"Trying to add effect \"{SplittedText[1]}\".");
             CreateEffect(SplittedText[1]);
             return HookResult.Continue;
         }

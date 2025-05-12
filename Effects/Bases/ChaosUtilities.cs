@@ -5,7 +5,7 @@ namespace ChaosPlugin.Effects.Bases;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Utils;
 
-public class ChaosUtilities
+public static class ChaosUtilities
 {
     public static void SpawnExplosion(Vector Origin, CCSPlayerController? Thrower = null, int Magnitude = 100, int Radius = 250)
     {
@@ -24,5 +24,17 @@ public class ChaosUtilities
         if (Thrower != null) Grenade.Thrower.Raw = Thrower.Pawn.Raw;
         Grenade.AcceptInput("InitializeSpawnFromWorld", ThrowerPawn, ThrowerPawn);
         Grenade.DetonateTime = 0;
+    }
+    
+    public static void Shuffle<T>(this List<T> List)
+    {
+        int n = List.Count;
+        Random Rng = new Random();
+        while (n > 1)
+        {
+            n--;
+            int k = Rng.Next(n + 1);
+            (List[k], List[n]) = (List[n], List[k]);
+        }
     }
 }

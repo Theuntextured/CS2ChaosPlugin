@@ -35,7 +35,6 @@ public class ColorfulSmokes : ChaosEffect
     public override void EndEffect()
     {
         if(GetChaosPlugin() == null) return;
-        Console.WriteLine("Colorful Smokes Ended");
         GetChaosPlugin().RemoveListener(SmokeListener);
     }
 

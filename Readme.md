@@ -76,7 +76,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~ColorfulSmokes~~
 * ~~Nothing~~
 * ~~Explode in midair~~
-* Shuffle locations
+* ~~Shuffle locations~~
 * Call of Duty (no recoil, no spread)
 * Moon gravity
 * Poor boy (remove all money)
