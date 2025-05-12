@@ -82,9 +82,10 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~Moon gravity~~
 * ~~No Gravity~~
 * ~~Extreme Gravity~~
-* Poor boy (remove all money)
-* Max money
-* London (Everyone is left with knife only)
+* ~~Go Eco (remove all money)~~
+* ~~Rich Kid (Max money)~~
+* ~~London (Everyone is left with knife only)~~
+* ~~Auto bhop~~
 * Kill random player
 * Everyone is invincible (Except bomb planter and bomb diffuser)
 * 0.2x game speed
