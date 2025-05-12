@@ -86,7 +86,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~Rich Kid (Max money)~~
 * ~~London (Everyone is left with knife only)~~
 * ~~Auto bhop~~
-* Kill random player
+* ~~Russian Roulette (Kill random player)~~
 * Everyone is invincible (Except bomb planter and bomb diffuser)
 * 0.2x game speed
 * 2x game speed
