@@ -102,14 +102,12 @@ It also automatically registers all relevant effect types to be used. Here are s
 * OHKO (1hp, gives back hp on end)
 * Invisibility (When sound is not being made)
 * Minimal damage
-* Valve DM experience (Everyone is given an awp)
+* ~~Valve DM experience (Everyone is given an awp)~~
 * Schizo (Plays misleading sounds)
 * LAG (rolls back position frequently)
 * Play CSGO intro music
-* Unbind W (does not rebind it. Player should do it manually)
-* m_yaw (HELICOPTER HELICOPTER)
 * Airstrike (Spawn HEs falling from the sky)
-* Spawn chicken
+* ~~Spawn chicken~~
 * Bomb can be planted anywhere
 * Buy anywhere
 * Teleport random CT to C4
@@ -117,4 +115,5 @@ It also automatically registers all relevant effect types to be used. Here are s
 * spawn decoy grenade
 * Give away locations (Play "AAH!" sfx at every player's location)
 * Randomize health
-* Negev is meta (Give everyone a negev)
+* ~~Negev is meta (Give everyone a negev)~~
+* ~~Decoy Grenade teleporters~~

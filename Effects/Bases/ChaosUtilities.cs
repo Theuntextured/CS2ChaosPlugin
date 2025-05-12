@@ -40,14 +40,19 @@ public static class ChaosUtilities
 
     public static void RemoveWeaponsExceptKnife(CCSPlayerController Player)
     {
-        if (!Player.IsValid || !Player.Pawn.IsValid)
+        SetPlayerLoadout(Player, ["weapon_knife"]);
+    }
+
+    public static void SetPlayerLoadout(CCSPlayerController Player, string[] Loadout)
+    {
+        if (!Player.IsValid || !Player.Pawn.IsValid || !Player.PawnIsAlive)
             return;
         
-        // Remove existing weapons
         Player.RemoveWeapons();
         Server.NextFrame(() =>
         {
-            Player.GiveNamedItem("weapon_knife");
+            foreach(var Weapon in Loadout)
+                Player.GiveNamedItem(Weapon);
         });
     }
 }

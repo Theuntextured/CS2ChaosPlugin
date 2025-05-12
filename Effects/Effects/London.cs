@@ -15,14 +15,14 @@ public class London : ChaosEffect
            ChaosUtilities.RemoveWeaponsExceptKnife(Player);
         }
         
-        foreach (var entity in Utilities.GetAllEntities())
+        foreach (var Entity in Utilities.GetAllEntities())
         {
-            if (!entity.IsValid)
+            if (!Entity.IsValid)
                 continue;
 
-            if (entity.DesignerName.StartsWith("weapon_"))
+            if (Entity.DesignerName.StartsWith("weapon_"))
             {
-                entity.Remove();
+                Entity.Remove();
             }
         }
         

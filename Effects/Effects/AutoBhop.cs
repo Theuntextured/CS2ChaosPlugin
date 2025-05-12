@@ -5,7 +5,7 @@ namespace ChaosPlugin.Effects.Effects;
 
 public class AutoBhop : ChaosEffect
 {
-    public override ChaosEffectDuration Duration { get; }
+    public override ChaosEffectDuration Duration => ChaosEffectDuration.Medium;
     public override void StartEffect()
     {
         Server.ExecuteCommand("sv_enablebunnyhopping 1;" +
