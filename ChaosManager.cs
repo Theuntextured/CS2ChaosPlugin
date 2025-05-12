@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using ChaosPlugin.Effects.Bases;
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
@@ -24,7 +25,7 @@ public class ChaosManager
         return string.Concat(Enumerable.Repeat(Str, Amount));
     }
     
-    public void RegisterEffectClasses()
+    private void RegisterEffectClasses()
     {
         // Get all types in the current assembly
         var EffectTypes = Assembly.GetExecutingAssembly()
@@ -82,7 +83,7 @@ public class ChaosManager
         if (GameRules == null) return;
         if (!GameRules.HasMatchStarted)
         {
-            Unload();
+            RemoveAllEffects();
             return;
         }
         const float Dt = 0.015625f; // 1/64
@@ -113,6 +114,7 @@ public class ChaosManager
             if (Effect.TimeLeft <= 0)
             {
                 RemoveEffect(i);
+                i--;
                 continue;
             }
             Effect.TickEffect(Dt);
@@ -160,6 +162,18 @@ public class ChaosManager
         if(!EffectClasses.TryGetValue(Effect, out var EffectType)) return null;
         ChaosEffect? NewEffect = (ChaosEffect?)Activator.CreateInstance(EffectType);
         if (NewEffect == null) return null;
+
+        if(NewEffect.IncompatibleEffects.Count > 0) {
+            for (int i = 0; i < CurrentEffects.Count; ++i)
+            {
+                var CurrentEffect = CurrentEffects[i];
+                if (NewEffect.IncompatibleEffects.Contains(CurrentEffect.UId))
+                {
+                    RemoveEffect(i);
+                    i--;
+                }
+            }
+        }
         if(NewEffect.TimeLeft > 0) CurrentEffects.Add(NewEffect);
         NewEffect.IsLoaded = true;
         NewEffect.UId = Effect;
@@ -174,7 +188,7 @@ public class ChaosManager
         return NewEffect;
     }
     
-    private static string GetColoredText(string Message)
+    public static string GetColoredText(string Message)
     {
         Dictionary<string, int> ColorMap = new()
         {
@@ -215,7 +229,7 @@ public class ChaosManager
         return $"\u200B{Replaced}";
     }
 
-    void RemoveEffect(int Pos)
+    private void RemoveEffect(int Pos)
     {
         Debug.Assert(Pos >=0 && Pos < CurrentEffects.Count);
         CurrentEffects[Pos].EndEffect();

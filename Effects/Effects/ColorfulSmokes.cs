@@ -1,9 +1,10 @@
-﻿using CounterStrikeSharp.API;
+﻿using ChaosPlugin.Effects.Bases;
+using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 
-namespace ChaosPlugin;
+namespace ChaosPlugin.Effects.Effects;
 
-public class ColorfulSmokesEffect : ChaosEffect
+public class ColorfulSmokes : ChaosEffect
 {
     private Listeners.OnEntitySpawned? SmokeListener;
     
@@ -28,7 +29,7 @@ public class ColorfulSmokesEffect : ChaosEffect
 
         GetChaosPlugin().RegisterListener(SmokeListener);
     }
-    public static string StaticUId => "ColorfulSmokesEffect";
+    public static string StaticUId => "ColorfulSmokes";
     public override string GetEffectName => "Colorful Smokes";
     public override string GetEffectDescription => "Makes smokes colorful!";
 
