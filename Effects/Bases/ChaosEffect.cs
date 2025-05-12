@@ -24,9 +24,9 @@ public abstract class ChaosEffect
         return Duration switch
         {
             ChaosEffectDuration.Instantaneous => 0.0f,
-            ChaosEffectDuration.Short => 5f,
-            ChaosEffectDuration.Medium => 10f,
-            ChaosEffectDuration.Long => 20f,
+            ChaosEffectDuration.Short => 10f,
+            ChaosEffectDuration.Medium => 20f,
+            ChaosEffectDuration.Long => 40f,
             _ => 0f
         };
     }

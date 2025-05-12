@@ -30,7 +30,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 * `public void EmitSoundToAll(string Sound)` - Plays a sound from a string to all players.
 * `MakeProgressBar(float Percent, int BarLength)` - Uses characters ▓ and ░ to make a string progress bar of length `BarLength` characters.
 * `public void RemoveAllEffects()` - Removes all active effects.
-* `public ChaosEffect? CreateEffect(string Effect)` - Creates an effect from its UId
+* `public ChaosEffect? CreateEffect(string Effect)` - Creates an effect from its UId (Class name)
 * `public static string GetColoredText(string Message)` - Converts a string containing `{[color]} (where [color] is replaced with the name of a color) with a string that can be used to create colored text in CS2. The supported colors are:
   * default
   * white
@@ -55,8 +55,6 @@ It also automatically registers all relevant effect types to be used. Here are s
 
 * `public virtual ChaosEffectDuration Duration` - This is a way to automatically handle duration. The way this is used is defined in `GetEffectDuration`. By default, this returns `ChaosEffectDuration.Instantaneous`, meaning that the effect will have no duration.
     * Example: `public override ChaosEffectDuration Duration => ChaosEffectDuration.Long;`
-* `public static string StaticUId` - The base class does not contain this field, since it is supposed to be static. It will be used to register the effect. Simply add this property to any effect that should be loaded in by the manager.
-  * Example: `public static string StaticUId => "ColorfulSmokes";`
 * `public virtual string GetEffectName` - The display name of the effect. 
   * Example: `public override string GetEffectName => "Colorful Smokes";`
 * `public virtual string GetEffectDescription` - The description of the effect. This will be displayed in chat when the effect is spawned. It should therefore be quite brief.
@@ -65,7 +63,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 * OPTIONAL `public virtual void EndEffect()` - The function gets called when the effect ends or gets interrupted. (Only called when the duration is >0)
 * OPTIONAL `public virtual void TickEffect(float Dt)` - The function gets called on tick while the effect is active. (Only called when the duration is >0)
 * OPTIONAL `public virtual float GetEffectDuration()` - Should return the duration of the effect. returning 0 means no duration, which has the above consequences.
-* OPTIONAL `public virtual HashSet<string> IncompatibleEffects` - Should return a list of incompatible effect UIds which should be removed if active. For example an effect which increases gravity would be incompatible with one that lowers it.
+* OPTIONAL `public virtual HashSet<string> IncompatibleEffects` - Should return a list of incompatible effect class names which should be removed if active. For example an effect which increases gravity would be incompatible with one that lowers it.
 
 **IMPORTANT NOTE:** If an effect is not to be loaded in by the effect manager as a usable effect, then it should be marked as `abstract`
 **NOTE:** If an effect is an event listener, remember to remove it as a listener when the effect ends.
@@ -77,7 +75,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 
 * ~~ColorfulSmokes~~
 * ~~Nothing~~
-* Explode in midair
+* ~~Explode in midair~~
 * Shuffle locations
 * Call of Duty (no recoil, no spread)
 * Moon gravity
@@ -88,7 +86,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 * Everyone is invincible (Except bomb planter and bomb diffuser)
 * 0.2x game speed
 * 2x game speed
-* Explosive combat (Every hit spawns an explosion)
+* ~~Explosive combat (Every hit spawns an explosion)~~
 * Back to spawn (Everyone gets teleported to spawn)
 * Randomize loadout
 * Infinite nades

@@ -29,7 +29,6 @@ public class ColorfulSmokes : ChaosEffect
 
         GetChaosPlugin().RegisterListener(SmokeListener);
     }
-    public static string StaticUId => "ColorfulSmokes";
     public override string GetEffectName => "Colorful Smokes";
     public override string GetEffectDescription => "Makes smokes colorful!";
 

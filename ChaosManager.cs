@@ -39,13 +39,10 @@ public class ChaosManager
         {
             Console.WriteLine($"Registering {Type.FullName}");
             // Assuming each class has a static UId property
-            var UIdProperty = Type.GetProperty("StaticUId", BindingFlags.Public | BindingFlags.Static);
-            if (UIdProperty != null)
             {
-                string UId = (string)UIdProperty.GetValue(null);
-                if (!EffectClasses.ContainsKey(UId))
+                string UId = Type.Name;
+                if (EffectClasses.TryAdd(UId, Type))
                 {
-                    EffectClasses.Add(UId, Type);
                     Console.WriteLine($"{UId} has been registered.");
                 }
             }
@@ -249,12 +246,22 @@ public class ChaosManager
     [GameEventHandler]
     public HookResult OnPlayerChat(EventPlayerChat @event, GameEventInfo info)
     {
+        var SplittedText = @event.Text.Split(" ");
         if(ChaosPlugin.Plugin == null) return HookResult.Continue;
-        if (@event.Text.ToLower() != ".chaos") return HookResult.Continue;
-        var Player = Utilities.GetPlayerFromUserid(@event.Userid);
-        if(Player != null)
-            Player.PrintToCenterAlert(ChaosPlugin.Plugin.ReadyText);
+        if (SplittedText[0].ToLower() == ".chaos")
+        {
+            var Player = Utilities.GetPlayerFromUserid(@event.Userid);
+            if (Player != null)
+                Player.PrintToCenterAlert(ChaosPlugin.Plugin.ReadyText);
+            return HookResult.Continue;
+        }
 
+        if (SplittedText[0].ToLower() == ".chaos_effect" && SplittedText.Length > 1)
+        {
+            CreateEffect(SplittedText[1]);
+            return HookResult.Continue;
+        }
+        
         return HookResult.Continue;
     }
 
