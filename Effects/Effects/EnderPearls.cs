@@ -7,7 +7,7 @@ namespace ChaosPlugin.Effects.Effects;
 
 public class EnderPearls : ChaosEffect
 {
-    public override ChaosEffectDuration Duration => ChaosEffectDuration.Medium;
+    public override ChaosEffectDuration Duration => ChaosEffectDuration.Long;
     public override void StartEffect()
     {
         GetChaosPlugin()?.RegisterEventHandler<EventDecoyStarted>(OnDecoyStart);

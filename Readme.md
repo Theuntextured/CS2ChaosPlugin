@@ -120,4 +120,5 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~Rainbow players~~
 * ~~Ez For Ence (Plays the song)~~
 * ~~Spawn fake explosion~~
-* Infinite ammo
+* ~~Infinite ammo~~
+* ~~WallHack~~
