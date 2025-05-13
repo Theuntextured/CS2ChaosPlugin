@@ -119,4 +119,4 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~Decoy Grenade teleporters~~
 * ~~Rainbow players~~
 * ~~Ez For Ence (Plays the song)~~
-* Spawn fake explosion
+* ~~Spawn fake explosion~~
