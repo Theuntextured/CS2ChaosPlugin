@@ -89,31 +89,11 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~London (Everyone is left with knife only)~~
 * ~~Auto bhop~~
 * ~~Russian Roulette (Kill random player)~~
-* Everyone is invincible (Except bomb planter and bomb diffuser)
-* 0.2x game speed
-* 2x game speed
 * ~~Explosive combat (Every hit spawns an explosion)~~
-* Back to spawn (Everyone gets teleported to spawn)
-* Randomize loadout
-* Infinite nades
-* Heavy recoil
-* Flashbang (Everyone gets flashed)
-* CS2 Moment (Extreme spread)
-* Pacifist (Killing someone will blow you up - Except for killing bomb planter or diffuser)
-* Flip everyone (Everyone turns 180 degrees)
 * ~~OHKO (1hp, gives back hp on end)~~
 * ~~Invisibility~~
-* Minimal damage
 * ~~Valve DM experience (Everyone is given an awp)~~
-* Schizo (Plays misleading sounds)
-* LAG (rolls back position frequently)
-* Airstrike (Spawn HEs falling from the sky)
 * ~~Spawn chicken~~
-* Bomb can be planted anywhere
-* Buy anywhere
-* Teleport random CT to C4
-* spawn smoke
-* spawn decoy grenade
 * ~~Randomize health~~
 * ~~Negev is meta (Give everyone a negev)~~
 * ~~Decoy Grenade teleporters~~
@@ -122,3 +102,23 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~Spawn fake explosion~~
 * ~~Infinite ammo~~
 * ~~WallHack~~
+* ~~Randomize loadout~~
+* Everyone is invincible (Except bomb planter and bomb diffuser)
+* 0.2x game speed
+* 2x game speed
+* Back to spawn (Everyone gets teleported to spawn)
+* Infinite nades
+* Heavy recoil
+* Flashbang (Everyone gets flashed)
+* CS2 Moment (Extreme spread)
+* Pacifist (Killing someone will blow you up - Except for killing bomb planter or diffuser)
+* Flip everyone (Everyone turns 180 degrees)
+* Minimal damage
+* Schizo (Plays misleading sounds)
+* LAG (rolls back position frequently)
+* Airstrike (Spawn HEs falling from the sky)
+* Bomb can be planted anywhere
+* Buy anywhere
+* Teleport random CT to C4
+* spawn smoke
+* spawn decoy grenade

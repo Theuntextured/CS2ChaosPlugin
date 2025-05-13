@@ -9,7 +9,6 @@ public class WallHack : ChaosEffect
 {
     public override ChaosEffectDuration Duration => ChaosEffectDuration.Medium;
 
-    private bool togglePlayersGlowing = false;
     public Dictionary</*player slot*/int, 
         Tuple</*prop 1*/CBaseModelEntity, /*prop 2*/CBaseModelEntity>> glowingPlayers = new();
     
@@ -36,8 +35,6 @@ public class WallHack : ChaosEffect
 
         }
 
-        togglePlayersGlowing = true;
-
     }
 
     public void RemoveAllGlowingPlayers() {
@@ -53,9 +50,6 @@ public class WallHack : ChaosEffect
                 glowingProp.Item2.AcceptInput("Kill");
             }
         }
-
-        togglePlayersGlowing = false;
-
     }
     
     public void SetPlayerGlowing(CCSPlayerController player, int team)
