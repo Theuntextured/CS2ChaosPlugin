@@ -41,19 +41,40 @@ public static class ChaosUtilities
 
     public static void RemoveWeaponsExceptKnife(this CCSPlayerController Player)
     {
-        Player.SetPlayerLoadout(["weapon_knife"]);
+        Player.SetPlayerLoadout(["weapon_knife", "item_assaultsuit"]);
     }
 
     public static void SetPlayerLoadout(this CCSPlayerController Player, string[] Loadout)
     {
         if (!Player.IsValid || !Player.Pawn.IsValid || !Player.PawnIsAlive)
             return;
+        bool HasC4 = false;
+        var WeaponServices = Player.Pawn.Value?.WeaponServices;
+        if (WeaponServices != null)
+        {
+            foreach (var WeaponHandle in WeaponServices.MyWeapons)
+            {
+                if (WeaponHandle.IsValid)
+                {
+                    var Weapon = WeaponHandle.Value;
+                    if (Weapon != null && Weapon.IsValid)
+                    {
+                        if (Weapon.DesignerName == "weapon_c4")
+                        {
+                            HasC4 = true;
+                        }
+                    }
+                }
+            }
+        }
         
         Player.RemoveWeapons();
         Server.NextFrame(() =>
         {
             foreach(var Weapon in Loadout)
                 Player.GiveNamedItem(Weapon);
+            if (HasC4)
+                Player.GiveNamedItem("weapon_c4");
         });
     }
 

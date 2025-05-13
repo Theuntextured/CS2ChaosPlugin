@@ -2,6 +2,7 @@
 
 public abstract class ChaosEffect
 {
+    public static Random Rand = new();
     public ChaosPlugin? GetChaosPlugin()
     {
         return ChaosPlugin.Plugin;

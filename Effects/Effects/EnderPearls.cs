@@ -10,7 +10,7 @@ public class EnderPearls : ChaosEffect
     public override ChaosEffectDuration Duration => ChaosEffectDuration.Medium;
     public override void StartEffect()
     {
-        GetChaosPlugin()?.RegisterEventHandler<EventDecoyStarted>(OnDecoyStart, HookMode.Pre);
+        GetChaosPlugin()?.RegisterEventHandler<EventDecoyStarted>(OnDecoyStart);
         foreach (var Player in Utilities.GetPlayers())
         {
             Player.GiveNamedItem("weapon_decoy");
@@ -30,7 +30,7 @@ public class EnderPearls : ChaosEffect
 
     public override void EndEffect()
     {
-        GetChaosPlugin()?.DeregisterEventHandler<EventDecoyStarted>(OnDecoyStart, HookMode.Pre);
+        GetChaosPlugin()?.DeregisterEventHandler<EventDecoyStarted>(OnDecoyStart);
     }
 
     public override string GetEffectName => "Ender Pearls";

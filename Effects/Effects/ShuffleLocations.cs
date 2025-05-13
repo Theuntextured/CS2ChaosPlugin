@@ -18,7 +18,8 @@ public class ShuffleLocations : ChaosEffect
             .Select(p => new Vector(p.PlayerPawn.Value?.AbsOrigin?.X ?? 0, p.PlayerPawn.Value?.AbsOrigin?.Y ?? 0, p.PlayerPawn.Value?.AbsOrigin?.Z ?? 0))
             .ToList();
         Positions.Shuffle();
-        
+
+        ExplodeInMidair.GraceTime = 0.5f;
         for (int i = 0; i < Players.Count; i++)
         {
             var Pawn = Players[i].PlayerPawn.Value;

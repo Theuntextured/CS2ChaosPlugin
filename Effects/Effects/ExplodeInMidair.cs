@@ -5,10 +5,17 @@ namespace ChaosPlugin.Effects.Effects;
 
 public class ExplodeInMidair : ChaosEffect
 {
+    public static float GraceTime = 0.5f;
+    public override void StartEffect()
+    {
+        GraceTime = 0.5f;
+    }
 
     public override void TickEffect(float Dt)
     {
         var Players = Utilities.GetPlayers();
+        GraceTime -= Dt;
+        if(GraceTime > 0) return;
 
         
         foreach (var Player in Players)

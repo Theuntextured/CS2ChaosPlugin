@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
 using ChaosPlugin.Effects.Bases;
+using ChaosPlugin.Effects.Effects;
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
@@ -50,6 +51,7 @@ public class ChaosManager
     {
         //EffectClasses.Add("colorful_smoke", typeof(ColorfulSmokesEffect));
         RegisterEffectClasses();
+        ChaosPlugin.Plugin?.RegisterEventHandler<EventRoundStart>(OnRoundStart);
     }
 
     public void EmitSoundToAll(string Sound)
@@ -145,6 +147,7 @@ public class ChaosManager
     public void Unload()
     {
         RemoveAllEffects();
+        ChaosPlugin.Plugin?.DeregisterEventHandler<EventRoundStart>(OnRoundStart);
     }
     
     public ChaosEffect? CreateEffect(string Effect)
@@ -276,6 +279,13 @@ public class ChaosManager
         return HookResult.Continue;
     }
 
+    private HookResult OnRoundStart(EventRoundStart @event, GameEventInfo info)
+    {
+        ExplodeInMidair.GraceTime = 0.5f;
+        
+        return HookResult.Continue;
+    }
+
     public float CurrentTime = 0.0f;
-    public float TimePerEffect = 20.0f;
+    public float TimePerEffect = 10.0f;
 }

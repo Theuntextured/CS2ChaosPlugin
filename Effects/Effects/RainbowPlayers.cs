@@ -40,4 +40,5 @@ public class RainbowPlayers : ChaosEffect
 
     public override string GetEffectName => "Rainbow Players";
     public override string GetEffectDescription => "Players turn into a 13-year-old's bedroom.";
+    public override string? Category => "PlayerRender";
 }

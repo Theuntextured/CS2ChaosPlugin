@@ -10,9 +10,7 @@ public class London : ChaosEffect
     {
         foreach (var Player in Utilities.GetPlayers())
         {
-            //Player.RemoveWeapons();
-           // Player.GiveNamedItem("weapon_knife");
-           ChaosUtilities.RemoveWeaponsExceptKnife(Player);
+           Player.RemoveWeaponsExceptKnife();
         }
         
         foreach (var Entity in Utilities.GetAllEntities())
@@ -20,7 +18,7 @@ public class London : ChaosEffect
             if (!Entity.IsValid)
                 continue;
 
-            if (Entity.DesignerName.StartsWith("weapon_"))
+            if (Entity.DesignerName.StartsWith("weapon_") && Entity.DesignerName != "weapon_c4")
             {
                 Entity.Remove();
             }

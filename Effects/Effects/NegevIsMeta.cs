@@ -10,7 +10,7 @@ public class NegevIsMeta : ChaosEffect
     {
         foreach (var Player in Utilities.GetPlayers())
         {
-           ChaosUtilities.SetPlayerLoadout(Player, ["weapon_knife", "weapon_negev"]);
+           Player.SetPlayerLoadout(["weapon_knife", "weapon_negev", "item_assaultsuit"]);
         }
     }
 

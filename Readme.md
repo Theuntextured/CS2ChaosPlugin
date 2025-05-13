@@ -66,6 +66,8 @@ It also automatically registers all relevant effect types to be used. Here are s
 * OPTIONAL `public virtual HashSet<string> IncompatibleEffects` - Should return a list of incompatible effect class names which should be removed if active. For example an effect which increases gravity would be incompatible with one that lowers it.
 * OPTIONAL `public virtual string? Category` - Getter for a category. Null for no category. Two effects of the same category cannot coexist. It is an easier wa to define incompatibilities.
 
+**ChaosUtilities** A utility class containing some useful functions.
+
 **IMPORTANT NOTE:** If an effect is not to be loaded in by the effect manager as a usable effect, then it should be marked as `abstract`
 **NOTE:** If an effect is an event listener, remember to remove it as a listener when the effect ends.
 ## To-Do
@@ -99,13 +101,12 @@ It also automatically registers all relevant effect types to be used. Here are s
 * CS2 Moment (Extreme spread)
 * Pacifist (Killing someone will blow you up - Except for killing bomb planter or diffuser)
 * Flip everyone (Everyone turns 180 degrees)
-* OHKO (1hp, gives back hp on end)
-* Invisibility (When sound is not being made)
+* ~~OHKO (1hp, gives back hp on end)~~
+* ~~Invisibility~~
 * Minimal damage
 * ~~Valve DM experience (Everyone is given an awp)~~
 * Schizo (Plays misleading sounds)
 * LAG (rolls back position frequently)
-* Play CSGO intro music
 * Airstrike (Spawn HEs falling from the sky)
 * ~~Spawn chicken~~
 * Bomb can be planted anywhere
@@ -113,10 +114,10 @@ It also automatically registers all relevant effect types to be used. Here are s
 * Teleport random CT to C4
 * spawn smoke
 * spawn decoy grenade
-* Give away locations (Play "AAH!" sfx at every player's location)
-* Randomize health
+* ~~Randomize health~~
 * ~~Negev is meta (Give everyone a negev)~~
 * ~~Decoy Grenade teleporters~~
 * ~~Rainbow players~~
 * ~~Ez For Ence (Plays the song)~~
 * ~~Spawn fake explosion~~
+* Infinite ammo
