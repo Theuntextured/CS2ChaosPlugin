@@ -129,7 +129,7 @@ public class ChaosManager
         foreach (var Effect in CurrentEffects)
         {
             EffectsText +=
-                $"{Effect.GetEffectName} {MakeProgressBar(Effect.TimeLeft / Effect.GetEffectDuration(), 8)}\n";
+                $"{Effect.GetEffectName} {MakeProgressBar(Effect.TimeLeft / Effect.GetEffectDuration(), 8)}<br>";
         }
         
         foreach (var Player in Utilities.GetPlayers())
