@@ -72,7 +72,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 **NOTE:** If an effect is an event listener, remember to remove it as a listener when the effect ends.
 ## To-Do
 
-* Effect display
+* CVar config
 
 ### Effects to do
 
