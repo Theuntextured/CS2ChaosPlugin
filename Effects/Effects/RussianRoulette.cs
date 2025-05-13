@@ -16,7 +16,7 @@ public class RussianRoulette : ChaosEffect
         }
 
         var SelectedPlayer = AlivePlayers[GetChaosPlugin()?.Manager.Rand.Next(AlivePlayers.Count) ?? 0];
-        SelectedPlayer.ExecuteClientCommandFromServer("kill");
+        SelectedPlayer?.CommitSuicide(true, true);
     }
 
     public override string GetEffectName => "Russian Roulette";

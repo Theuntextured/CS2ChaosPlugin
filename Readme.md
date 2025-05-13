@@ -117,3 +117,6 @@ It also automatically registers all relevant effect types to be used. Here are s
 * Randomize health
 * ~~Negev is meta (Give everyone a negev)~~
 * ~~Decoy Grenade teleporters~~
+* ~~Rainbow players~~
+* ~~Ez For Ence (Plays the song)~~
+* Spawn fake explosion

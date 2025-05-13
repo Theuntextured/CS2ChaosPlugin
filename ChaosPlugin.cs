@@ -98,7 +98,7 @@ public class ChaosPlugin : BasePlugin
     [ConsoleCommand("chaos_effects", "Lists all chaos effects available.")]
     public void OnChaosListCommand(CCSPlayerController? Player, CommandInfo Command)
     {
-        Command.ReplyToCommand("List of chaos effects:");
+        Command.ReplyToCommand($"List of {Manager.EffectClasses.Count} loaded chaos effects:");
         foreach (var Effect in Manager.EffectClasses)
         {
             Command.ReplyToCommand(Effect.Key);

@@ -17,6 +17,6 @@ public class ExtremeGravity : ChaosEffect
     }
 
     public override string GetEffectName => "Extreme Gravity";
-    public override string GetEffectDescription => "Lowers gravity to 400%";
+    public override string GetEffectDescription => "Increases gravity to 400%";
     public override string? Category => "Gravity";
 }
