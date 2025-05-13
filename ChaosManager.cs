@@ -90,7 +90,6 @@ public class ChaosManager
             if(CurrentTime + Dt >= (TimePerEffect - i) && CurrentTime < (TimePerEffect - i))
             {
                 EmitSoundToAll("\\sounds\\ui\\buttonrollover.vsnd_c");
-                Console.WriteLine($"{i} seconds left.");
                 break;
             }
         }
@@ -153,6 +152,14 @@ public class ChaosManager
     public ChaosEffect? CreateEffect(string Effect)
     {
         if (ChaosPlugin.Plugin == null) return null;
+        
+        Console.WriteLine($"Adding effect {Effect}");
+        
+        if (!EffectClasses.TryGetValue(Effect, out var EffectType))
+        {
+            Console.WriteLine($"{Effect} could not be created because it does not exist.");
+            return null;
+        }
 
         foreach (var CurrentEffect in CurrentEffects)
         {
@@ -161,15 +168,8 @@ public class ChaosManager
                 CurrentEffect.TimeLeft = CurrentEffect.GetEffectDuration();
                 CurrentEffects.Remove(CurrentEffect);
                 CurrentEffects.Add(CurrentEffect);
-                Console.WriteLine($"{CurrentEffect.GetEffectName} has been reset.");
                 return CurrentEffect;
             }
-        }
-
-        if (!EffectClasses.TryGetValue(Effect, out var EffectType))
-        {
-            Console.WriteLine($"{Effect} could not be created because it does not exist.");
-            return null;
         }
         
         ChaosEffect? NewEffect = (ChaosEffect?)Activator.CreateInstance(EffectType);
@@ -287,5 +287,5 @@ public class ChaosManager
     }
 
     public float CurrentTime = 0.0f;
-    public float TimePerEffect = 10.0f;
+    public float TimePerEffect = 5;
 }
