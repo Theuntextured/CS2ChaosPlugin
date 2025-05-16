@@ -31,7 +31,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 * `MakeProgressBar(float Percent, int BarLength)` - Uses characters ▓ and ░ to make a string progress bar of length `BarLength` characters.
 * `public void RemoveAllEffects()` - Removes all active effects.
 * `public ChaosEffect? CreateEffect(string Effect)` - Creates an effect from its UId (Class name)
-* `public static string GetColoredText(string Message)` - Converts a string containing `{[color]} (where [color] is replaced with the name of a color) with a string that can be used to create colored text in CS2. The supported colors are:
+* `public static string GetColoredText(string Message)` - Converts a string containing `{[color]}` (where [color] is replaced with the name of a color) with a string that can be used to create colored text in CS2. The supported colors are:
   * default
   * white
   * darkred
