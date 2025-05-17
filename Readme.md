@@ -103,9 +103,10 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~Infinite ammo~~
 * ~~WallHack~~
 * ~~Randomize loadout~~
-* Everyone is invincible (Except bomb planter and bomb diffuser)
-* 0.2x game speed
-* 2x game speed
+* ~~Everyone is invincible (Except bomb planter and bomb diffuser)~~
+* ~~0.2x game speed~~
+* ~~2x game speed~~
+* ~~5x game speed~~
 * Back to spawn (Everyone gets teleported to spawn)
 * Infinite nades
 * Heavy recoil

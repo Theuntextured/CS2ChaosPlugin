@@ -6,6 +6,7 @@ using ChaosPlugin.Effects.Effects;
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
+using CounterStrikeSharp.API.Modules.Cvars;
 using CounterStrikeSharp.API.Modules.Events;
 
 
@@ -83,7 +84,8 @@ public class ChaosManager
             RemoveAllEffects();
             return;
         }
-        const float Dt = 0.015625f; // 1/64
+        var TimeScale = ConVar.Find("host_timescale")?.GetPrimitiveValue<float>() ?? 1f;
+        var Dt = 1f / (64f * TimeScale); // 1/64
 
         for (var i = 1; i <= 3; i++)
         {
