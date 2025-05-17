@@ -109,7 +109,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 * ~~5x game speed~~
 * Back to spawn (Everyone gets teleported to spawn)
 * Infinite nades
-* Heavy recoil
+* Heavy recoil (not only more recoil, but shooting pushes you backwards)
 * Flashbang (Everyone gets flashed)
 * CS2 Moment (Extreme spread)
 * Pacifist (Killing someone will blow you up - Except for killing bomb planter or diffuser)
@@ -123,3 +123,7 @@ It also automatically registers all relevant effect types to be used. Here are s
 * Teleport random CT to C4
 * spawn smoke
 * spawn decoy grenade
+* Everyone is tiny
+* Everyone is huge
+* Explode all chicken
+* Spawn huge chicken
