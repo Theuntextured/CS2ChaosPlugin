@@ -22,7 +22,7 @@ public class ExplodeInMidair : ChaosEffect
         {
             var Pawn = Player.PlayerPawn.Value;
             if(Pawn == null) continue;
-            if(Pawn.Health <= 0) continue;
+            if(Pawn.Health <= 0 || !Player.PawnIsAlive) continue;
             if (Pawn.GroundEntity.Value == null && Pawn.AbsOrigin != null && Pawn.IsValid) //if player is in air and position is valid
             {
                 ChaosUtilities.SpawnExplosion(Pawn.AbsOrigin, Player);

@@ -48,6 +48,7 @@ public static class ChaosUtilities
     {
         if (!Player.IsValid || !Player.Pawn.IsValid || !Player.PawnIsAlive)
             return;
+        /*
         bool HasC4 = false;
         var WeaponServices = Player.Pawn.Value?.WeaponServices;
         if (WeaponServices != null)
@@ -66,15 +67,16 @@ public static class ChaosUtilities
                     }
                 }
             }
-        }
+        }*/
         
         Player.RemoveWeapons();
         Server.NextFrame(() =>
         {
             foreach(var Weapon in Loadout)
                 Player.GiveNamedItem(Weapon);
+            /*
             if (HasC4)
-                Player.GiveNamedItem("weapon_c4");
+                Player.GiveNamedItem("weapon_c4");*/
         });
     }
 

@@ -8,7 +8,7 @@ public class RussianRoulette : ChaosEffect
     public override void StartEffect()
     {
         var AlivePlayers = Utilities.GetPlayers()
-            .Where(P => P.IsValid && P.Pawn.IsValid && P.Pawn.Value?.Health > 0)
+            .Where(P => P.IsValid && P.Pawn.IsValid && P.Pawn.Value?.Health > 0 && P.PawnIsAlive)
             .ToList();
         if (AlivePlayers.Count == 0)
         {
