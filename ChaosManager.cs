@@ -19,6 +19,8 @@ public class ChaosManager
     public Dictionary<string, Type> EffectClasses = [];
 
     public List<ChaosEffect> CurrentEffects = [];
+    
+    public string? LastEffect = null;
 
     public static string RepeatString(string Str, int Amount)
     {
@@ -126,12 +128,16 @@ public class ChaosManager
         string BarText = $"<font color='{Color}'>Next effect:<br>{MakeProgressBar(TimePercent, 10)}</font>";
 
         string EffectsText = "<br>{default}";
-        
+        bool FirstDone = false;
         foreach (var Effect in CurrentEffects)
         {
             EffectsText +=
-                $"{Effect.GetEffectName} {MakeProgressBar(Effect.TimeLeft / Effect.GetEffectDuration(), 8)}<br>";
+                $"{(FirstDone ? "<br>" : "")}{Effect.GetEffectName} {MakeProgressBar(Effect.TimeLeft / Effect.GetEffectDuration(), 8)}";
+            FirstDone = true;
         }
+        
+        if(LastEffect != null)
+            EffectsText += $"{(FirstDone ? "<br>" : "")}{LastEffect}";
         
         foreach (var Player in Utilities.GetPlayers())
         {
@@ -143,6 +149,7 @@ public class ChaosManager
     {
         while (CurrentEffects.Count > 0) 
             RemoveEffect(CurrentEffects.Count - 1);
+        LastEffect = null;
     }
 
     public void Unload()
@@ -153,6 +160,7 @@ public class ChaosManager
     
     public ChaosEffect? CreateEffect(string Effect)
     {
+        LastEffect = null;
         if (ChaosPlugin.Plugin == null) return null;
         
         Console.WriteLine($"Adding effect {Effect}");
@@ -204,7 +212,8 @@ public class ChaosManager
         var Players = Utilities.GetPlayers();
         Server.PrintToChatAll(GetColoredText("{red}New Effect: " + NewEffect.GetEffectName));
         Server.PrintToChatAll(GetColoredText("{green}" + NewEffect.GetEffectDescription));
-        
+
+        if(NewEffect.GetEffectDuration() <= 0) LastEffect = NewEffect.GetEffectName;
         return NewEffect;
     }
     
